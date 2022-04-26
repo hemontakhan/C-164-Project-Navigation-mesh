@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Virtual Paint Splash</title>
+ <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+ <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+ <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+ <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+
+ <script src="./js/splash_bullet.js"></script>
+ </head>
+ <body>
+  <a-scene id="scene" inspector-plugin-recast>
+
+   <a-entity id='environment' environment="preset : starry;skyType : gradient;lighting : none"></a-entity>
+
+   <a-entity light="type: ambient;color: white;intensity : 1"></a-entity>
+
+   <!--Assets-->
+   <a-assets>
+    <a-asset-item  id="gunman"  src="./heavy_assault_rifle/scene.gltf"></a-asset-item>
+    <a-asset-item id="collider" src='./navmesh.gltf'></a-asset-item>
+
+     <audio id="shoot" src="./sounds/shoot.mp3"></audio>
+    </a-assets>
+   
+    <a-entity id="nav-mesh" gltf-model="#collider" nav-mesh visible="false"></a-entity>
+
+   <a-entity bullets></a-entity>
+
+   <!--Sound-->
+   <a-entity id="shootSound" sound="src : #shoot;poolSize: 2;autoplay: false;volume : 2;loop:false"></a-entity>
+
+   <a-entity movement-controls='speed : 0.2;constrainToNavMesh : true; position: 0 0 2'>
+   <a-entity id="camera" camera  position="0 1.3 0" wasd-controls look-controls>
+     <a-entity id="alpha ayush"  gltf-model="#gunman" position="0 -0.7 -1" scale="1.5  1.5  1.5" rotation="0 180 0"></a-entity>
+     <a-cursor></a-cursor>
+   </a-entity>
+  </a-entity>
+
+    <!--Walls-->
+    <a-box position="0 1.2 -6.5" width="3" height="5" color="black" dynamic-body></a-box>
+    <a-box position="7 0 -26" height="10" width="30" color="#61FF9F"></a-box>
+    <a-box position="20 0 -6.5" height="10" width="11" color="yellow" ></a-box>
+    <a-box position="-20 0 -6.5" height="10" width="11" color="cyan" ></a-box>
+    <a-box position="-40 0 -6.5" height="10" width="11" color="purple"></a-box>
+
+    <a-box position="0 0 -26" height="10" width="20" color="orange" rotation='0 45 0'></a-box>
+    <a-box position="15 0 -26" height="10" width="20" color="#FF6450" rotation='0 45 0'></a-box>
+    <a-box position="-30 0 -26" height="10" width="20" color="white" rotation='0 45 0'></a-box>
+
+    <a-box position="-40 0 -25" height="10" width="15" color="green"></a-box>
+   <!--Ground-->
+   <a-plane position="0 0 -1" rotation="-90 0 0" repeat="5 5" color="blue"  height="200" width="200" 
+   static-body visible="false"></a-plane>
+  </a-scene>
+ </body>
+</html>
